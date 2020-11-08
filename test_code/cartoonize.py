@@ -7,7 +7,6 @@ import guided_filter
 from tqdm import tqdm
 
 
-
 def resize_crop(image):
     h, w, c = np.shape(image)
     if min(h, w) > 720:
@@ -54,8 +53,6 @@ def cartoonize(load_folder, save_folder, model_path):
             print('cartoonize {} failed'.format(load_path))
 
 
-    
-
 if __name__ == '__main__':
     model_path = 'saved_models'
     load_folder = 'test_images'
@@ -63,6 +60,3 @@ if __name__ == '__main__':
     if not os.path.exists(save_folder):
         os.mkdir(save_folder)
     cartoonize(load_folder, save_folder, model_path)
-    
-
-    
