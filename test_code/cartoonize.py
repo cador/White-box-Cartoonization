@@ -38,8 +38,8 @@ def cartoonize(load_folder, save_folder, model_path):
     saver.restore(sess, tf.train.latest_checkpoint(model_path))
     name_list = os.listdir(load_folder)
     for name in tqdm(name_list):
+        load_path = os.path.join(load_folder, name)
         try:
-            load_path = os.path.join(load_folder, name)
             save_path = os.path.join(save_folder, name)
             image = cv2.imread(load_path)
             image = resize_crop(image)
@@ -53,10 +53,11 @@ def cartoonize(load_folder, save_folder, model_path):
             print('cartoonize {} failed'.format(load_path))
 
 
+def style(__input, __output):
+    if not os.path.exists(__output):
+        os.mkdir(__output)
+    cartoonize(__input, __output, 'saved_models')
+
+
 if __name__ == '__main__':
-    model_path = 'saved_models'
-    load_folder = 'test_images'
-    save_folder = 'cartoonized_images'
-    if not os.path.exists(save_folder):
-        os.mkdir(save_folder)
-    cartoonize(load_folder, save_folder, model_path)
+    style('test_images', 'cartoonized_images')
